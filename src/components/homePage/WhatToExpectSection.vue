@@ -23,7 +23,7 @@
       <div class="content-boxes">
         <div class="content-box">
           <div class="box-decorative graphic-1">
-            <img src="@/assets/elements-expect-section /element1.svg" alt="Decorative" />
+            <img src="@/assets/elements-expect-section/element1.svg" alt="Decorative" />
           </div>
           <h3 class="box-title">Technical content</h3>
           <p class="box-text">
@@ -33,7 +33,7 @@
 
         <div class="content-box">
           <div class="box-decorative graphic-2">
-            <img src="@/assets/elements-expect-section /element2.svg" alt="Decorative" />
+            <img src="@/assets/elements-expect-section/element2.svg" alt="Decorative" />
           </div>
           <h3 class="box-title">Panel Discussions</h3>
           <p class="box-text">
@@ -43,7 +43,7 @@
 
         <div class="content-box">
           <div class="box-decorative graphic-3">
-            <img src="@/assets/elements-expect-section /element3.svg" alt="Decorative" />
+            <img src="@/assets/elements-expect-section/element3.svg" alt="Decorative" />
           </div>
           <h3 class="box-title">Networking</h3>
           <p class="box-text">
@@ -94,7 +94,7 @@
         </div>
 
         <div class="devfest-branding-box">
-          <img src="@/assets/elements-expect-section /block-img.png" alt="DevFest Indore" class="block-image" />
+          <img src="@/assets/elements-expect-section/block-img.png" alt="DevFest Indore" class="block-image" />
         </div>
       </div>
     </div>
