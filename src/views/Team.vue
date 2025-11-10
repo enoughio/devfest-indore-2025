@@ -103,7 +103,7 @@ onMounted(() => {
 
 .organizing-section {
   background-color: #fff;
-  padding: 45px 0 80px 0;
+  padding: 100px 0 80px 0;
   display: flex;
   justify-content: center;
   font-family: "Google Sans", Arial, sans-serif;
