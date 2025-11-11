@@ -116,24 +116,25 @@ function downloadBadge() {
 <style scoped>
 .badge-container {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   gap: 2rem;
   flex-wrap: wrap;
-  padding: 2rem;
-  margin: 4rem  4%;
-  margin-bottom: 0;
+  padding: 4rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+  margin: 0 auto;
   font-family: "Google Sans", Arial, sans-serif;
   color: #1f1f1f;
 }
 
 .badge-left {
-  flex: 1;
+  flex: 0 1 420px;
   min-width: 300px;
 }
 
 .badge-right {
-  flex: 1;
+  flex: 0 1 420px;
   min-width: 320px;
   display: flex;
   justify-content: center;
