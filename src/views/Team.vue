@@ -14,7 +14,7 @@
         <div
           v-for="member in team"
           :key="member.name"
-          class="member"
+          class="member no-select"
           @click="openModalHandler(member)"
         >
           <img :src="member.image" :alt="member.name" class="photo" />
@@ -129,10 +129,6 @@ onMounted(() => {
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s ease;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 
 .member:active {

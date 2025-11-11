@@ -1,5 +1,5 @@
 <template>
-  <div class="event-item" @click="$emit('click')">
+  <div class="event-item no-select" @click="$emit('click')">
     <div class="time-column">
       <div class="start-time">{{ event.startTime }}</div>
       <div class="end-time">{{ event.endTime }}</div>
@@ -33,10 +33,6 @@ export default {
   border-bottom: 1px solid #e0e0e0;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 
 .event-item:last-child {

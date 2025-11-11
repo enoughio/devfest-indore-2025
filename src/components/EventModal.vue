@@ -4,7 +4,7 @@
       <div class="modal-card">
         <div class="modal-header">
           <h2 class="modal-title">Event Details</h2>
-          <button class="close-button" @click="close" aria-label="Close modal">
+          <button class="close-button no-select" @click="close" aria-label="Close modal">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
             </svg>
@@ -135,10 +135,6 @@ export default {
   min-width: 48px;
   min-height: 48px;
   flex-shrink: 0;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 
 .close-button:hover {

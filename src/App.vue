@@ -114,6 +114,14 @@ h2 { font-size: var(--text-3xl); line-height: 1.25; }
 h3 { font-size: var(--text-2xl); line-height: 1.3; }
 p { margin: 0; line-height: 1.6; }
 
+/* User interaction utilities */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
 /* ============================================
    UNIFIED LAYOUT SYSTEM
    Based on original Home page gold standard

@@ -27,7 +27,7 @@
           <button
             v-for="track in dynamicTracks"
             :key="track"
-            class="track-tab"
+            class="track-tab no-select"
             :class="{ active: activeTrack === track }"
             role="tab"
             :aria-selected="activeTrack === track"
@@ -382,10 +382,6 @@ export default {
   display: flex;
   align-items: center;
   border-radius: var(--radius-xl);
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 
 .track-tab:hover {

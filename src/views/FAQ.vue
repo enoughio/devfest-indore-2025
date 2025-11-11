@@ -16,7 +16,7 @@
         <!-- button ensures large tappable area on mobile -->
         <button
           type="button"
-          class="faq-question"
+          class="faq-question no-select"
           @click="toggle(index)"
           @touchstart.prevent="toggle(index)"
           :aria-expanded="openIndex === index"
@@ -108,10 +108,6 @@ export default {
   cursor: pointer;
   text-align: left;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
 }
 .faq-question:active,
 .faq-question:focus { outline: none; background: #ececec; }

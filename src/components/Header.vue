@@ -14,26 +14,8 @@
       </div>
 
       <ul class="nav-links">
-        <li>
-          <router-link to="/" class="nav-link" active-class="active">Home</router-link>
-        </li>
-        <li>
-          <router-link to="/agenda" class="nav-link" active-class="active">Agenda</router-link>
-        </li>
-        <li>
-          <router-link to="/speakers" class="nav-link" active-class="active">Speakers</router-link>
-        </li>
-        <li>
-          <router-link to="/badge" class="nav-link" active-class="active">Badge</router-link>
-        </li>
-        <li>
-          <router-link to="/sponsors" class="nav-link" active-class="active">Sponsors</router-link>
-        </li>
-        <li>
-          <router-link to="/team" class="nav-link" active-class="active">Team</router-link>
-        </li>
-        <li>
-          <router-link to="/faq" class="nav-link" active-class="active">FAQ</router-link>
+        <li v-for="item in navItems" :key="item.path">
+          <router-link :to="item.path" class="nav-link" active-class="active">{{ item.label }}</router-link>
         </li>
       </ul>
       <button class="register-btn" @click="handleRegister">Register Now</button>
@@ -45,26 +27,8 @@
     <!-- Mobile bottom sheet -->
     <div class="mobile-bottom-sheet" :class="{ 'active': isMobileMenuOpen }">
       <ul class="mobile-nav-links">
-        <li>
-          <router-link to="/" class="nav-link" active-class="active" @click="closeMobileMenu">Home</router-link>
-        </li>
-        <li>
-          <router-link to="/agenda" class="nav-link" active-class="active" @click="closeMobileMenu">Agenda</router-link>
-        </li>
-        <li>
-          <router-link to="/speakers" class="nav-link" active-class="active" @click="closeMobileMenu">Speakers</router-link>
-        </li>
-        <li>
-          <router-link to="/badge" class="nav-link" active-class="active" @click="closeMobileMenu">Badge</router-link>
-        </li>
-        <li>
-          <router-link to="/sponsors" class="nav-link" active-class="active" @click="closeMobileMenu">Sponsors</router-link>
-        </li>
-        <li>
-          <router-link to="/team" class="nav-link" active-class="active" @click="closeMobileMenu">Team</router-link>
-        </li>
-        <li>
-          <router-link to="/faq" class="nav-link" active-class="active" @click="closeMobileMenu">FAQ</router-link>
+        <li v-for="item in navItems" :key="item.path">
+          <router-link :to="item.path" class="nav-link" active-class="active" @click="closeMobileMenu">{{ item.label }}</router-link>
         </li>
       </ul>
       <button class="mobile-register-btn" @click="handleRegisterAndClose">Register Now</button>
@@ -77,7 +41,16 @@ export default {
   name: 'HeaderComponent',
   data() {
     return {
-      isMobileMenuOpen: false
+      isMobileMenuOpen: false,
+      navItems: [
+        { path: '/', label: 'Home' },
+        { path: '/agenda', label: 'Agenda' },
+        { path: '/speakers', label: 'Speakers' },
+        { path: '/badge', label: 'Badge' },
+        { path: '/sponsors', label: 'Sponsors' },
+        { path: '/team', label: 'Team' },
+        { path: '/faq', label: 'FAQ' }
+      ]
     }
   },
   methods: {
