@@ -33,6 +33,14 @@ export default {
   border-bottom: 1px solid #e0e0e0;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.event-item:last-child {
+  border-bottom: none;
 }
 
 .event-item:hover {
@@ -51,17 +59,19 @@ export default {
 }
 
 .start-time {
-  font-size: 1.125rem;
+  font-size: var(--text-lg);
   font-weight: 500;
   color: #202124;
   line-height: 1.4;
+  font-family: var(--font-mono);
 }
 
 .end-time {
-  font-size: 0.875rem;
+  font-size: var(--text-base);
   font-weight: 400;
   color: #5f6368;
   line-height: 1.4;
+  font-family: var(--font-mono);
 }
 
 .details-column {
@@ -76,6 +86,7 @@ export default {
   font-weight: 500;
   color: #202124;
   line-height: 1.5;
+  font-family: var(--font-sans);
 }
 
 .track-tag {
@@ -89,6 +100,7 @@ export default {
   width: fit-content;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-family: var(--font-mono);
 }
 
 @media (max-width: 768px) {
@@ -98,15 +110,15 @@ export default {
   }
   
   .start-time {
-    font-size: 1rem;
+    font-size: var(--text-base);
   }
   
   .end-time {
-    font-size: 0.8125rem;
+    font-size: var(--text-sm);
   }
   
   .event-title {
-    font-size: 0.9375rem;
+    font-size: var(--text-sm);
   }
 }
 </style>

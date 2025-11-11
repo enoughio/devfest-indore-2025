@@ -92,13 +92,15 @@ export default {
   background-color: #F0F0F0;
   border-top: 1px solid #D0D0D0;
   margin-top: auto;
-  padding: 3rem 2rem 1.5rem;
+  padding: 3rem 1rem 1.5rem;
+  display: flex;
+  justify-content: center;
 }
 
 .footer-container {
-  max-width: 1400px;
+  max-width: var(--content-max-width);
+  width: var(--content-width);
   margin: 0 auto;
-  width: 100%;
 }
 
 .footer-content {
@@ -140,7 +142,7 @@ export default {
   border: 1px solid #000000;
   font-size: 0.75rem;
   font-weight: normal;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
   white-space: nowrap;
   display: inline-block;
 }
@@ -148,7 +150,7 @@ export default {
 .footer-tagline {
   font-size: 0.875rem;
   color: #666666;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
   margin: 0;
   text-align: center;
 }
@@ -170,7 +172,7 @@ export default {
   font-weight: bold;
   color: #333333;
   margin: 0 0 0.5rem 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
 }
 
 .links-list {
@@ -186,7 +188,7 @@ export default {
   color: #666666;
   text-decoration: none;
   font-size: 0.875rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
   transition: color 0.2s;
 }
 
@@ -234,12 +236,16 @@ export default {
 .copyright {
   font-size: 0.875rem;
   color: #666666;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
   margin: 0;
 }
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+  .footer-container {
+    width: var(--content-width-tablet);
+  }
+  
   .footer-content {
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
@@ -260,8 +266,12 @@ export default {
 }
 
 @media (max-width: 768px) {
+  .footer-container {
+    width: var(--content-width-mobile);
+  }
+  
   .footer {
-    padding: 2rem 1.5rem 1rem;
+    padding: 2rem 1rem 1rem;
   }
   
   .footer-content {

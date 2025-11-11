@@ -1,12 +1,13 @@
 <template>
-  <section class="faq-section">
-    <div class="faq-header">
-      <h1>Frequently asked questions</h1>
-      <p>Need Answers? Everything you need to know</p>
-      <hr />
-    </div>
+  <section class="page-content">
+    <div class="page-content-container">
+      <div class="faq-header">
+        <h1>Frequently asked questions</h1>
+        <p>Need Answers? Everything you need to know</p>
+        <hr />
+      </div>
 
-    <div class="faq-container">
+      <div class="faq-container">
       <div
         v-for="(faq, index) in faqs"
         :key="index"
@@ -34,6 +35,7 @@
           <p>{{ faq.answer }}</p>
         </div>
       </div>
+    </div>
     </div>
   </section>
 </template>
@@ -66,35 +68,26 @@ export default {
 </script>
 
 <style scoped>
-/* ---------------- Base ---------------- */
+/* Base */
 * { box-sizing: border-box; }
-.faq-section {
-  background: #fff;
-  padding: 60px 18px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: calc(80vh - 60px);
-}
+/* All layout handled by .page-content parent */
 
 /* Header */
 .faq-header {
   width: 100%;
-  max-width: 960px;
   text-align: left;
   margin-bottom: 18px;
 }
-.faq-header h1 { font-size: 2rem; margin: 0 0 8px; font-weight: 700; color: #202124; line-height: 1.15; }
-.faq-header p { margin: 0 0 12px; color: #5f6368; }
-.faq-header hr { height: 2px; background: #e0e0e0; border: none; border-radius: 2px; }
+.faq-header h1 { font-size: var(--text-4xl); margin: 0 0 var(--space-sm); font-weight: 700; color: var(--color-text-primary); line-height: 1.15; }
+.faq-header p { margin: 0 0 var(--space-md); color: var(--color-text-secondary); }
+.faq-header hr { height: 2px; background: var(--color-border); border: none; border-radius: 2px; }
 
 /* Container (single unified card) */
 .faq-container {
   width: 100%;
-  max-width: 960px;
-  background: #f5f5f5;
-  border-radius: 12px;
-  border: 1px solid #e0e0e0;
+  background: var(--color-bg-light);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
@@ -111,56 +104,58 @@ export default {
   justify-content: space-between;
   background: transparent;
   border: none;
-  padding: 18px 22px;
+  padding: var(--space-lg) var(--space-xl);
   cursor: pointer;
   text-align: left;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 .faq-question:active,
 .faq-question:focus { outline: none; background: #ececec; }
-.q-text { flex: 1; font-size: 1rem; font-weight: 600; color: #202124; }
+.q-text { flex: 1; font-size: var(--text-base); font-weight: 600; color: var(--color-text-primary); }
 
 /* Arrow */
-.arrow { font-size: 1.4rem; color: #5f6368; transition: transform .24s ease, color .24s ease; margin-left: 12px; }
+.arrow { font-size: 1.4rem; color: var(--color-text-secondary); transition: transform .24s ease, color .24s ease; margin-left: var(--space-md); }
 .arrow.open { transform: rotate(180deg); color: #f6b500; }
 
 /* Answer panel - v-show + CSS open class for transition */
 .faq-answer {
   background: #fff;
-  padding: 0 22px;             /* collapsed has zero vertical padding */
+  padding: 0 var(--space-xl);
   overflow: hidden;
-  max-height: 0;               /* collapsed */
+  max-height: 0;
   transition: max-height 0.33s ease, padding 0.28s ease, opacity 0.28s ease;
   opacity: 0;
 }
 .faq-answer.open {
-  padding: 16px 22px;          /* vertical padding when open */
-  max-height: 600px;           /* large enough for typical answers */
+  padding: var(--space-md) var(--space-xl);
+  max-height: 600px;
   opacity: 1;
 }
-.faq-answer p { margin: 0; font-size: 0.96rem; line-height: 1.6; color: #333; }
+.faq-answer p { margin: 0; font-size: var(--text-base); line-height: 1.6; color: #333; }
 
-/* ---------------- Responsive tweaks ---------------- */
+/* Responsive tweaks */
 @media (max-width: 900px) {
-  .faq-section { padding: 48px 14px; }
-  .faq-header h1 { font-size: 1.8rem; }
+  .faq-header h1 { font-size: var(--text-3xl); }
   .faq-question { padding: 16px 18px; }
   .faq-answer.open { max-height: 700px; }
 }
 
 @media (max-width: 600px) {
-  .faq-section { padding: 36px 12px; }
-  .faq-header h1 { font-size: 1.6rem; }
-  .q-text { font-size: 0.98rem; }
+  .faq-header h1 { font-size: var(--text-2xl); }
+  .q-text { font-size: var(--text-sm); }
   .arrow { font-size: 1.2rem; }
   .faq-question { padding: 14px 14px; }
   .faq-answer.open { padding: 12px 14px; }
 }
 
 @media (max-width: 420px) {
-  .faq-header h1 { font-size: 1.4rem; }
-  .q-text { font-size: 0.95rem; }
-  .faq-answer p { font-size: 0.92rem; }
+  .faq-header h1 { font-size: var(--text-xl); }
+  .q-text { font-size: var(--text-sm); }
+  .faq-answer p { font-size: var(--text-sm); }
   .faq-answer.open { max-height: 900px; } /* allow taller answers on small screens */
 }
 </style>

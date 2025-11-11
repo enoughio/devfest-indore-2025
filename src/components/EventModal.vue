@@ -3,45 +3,39 @@
     <div v-if="show" class="modal-overlay" @click.self="close">
       <div class="modal-card">
         <div class="modal-header">
-          <h2 class="modal-title">Details</h2>
-          <button class="close-icon" @click="close" aria-label="Close">
+          <h2 class="modal-title">Event Details</h2>
+          <button class="close-button" @click="close" aria-label="Close modal">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#5f6368"/>
+              <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
             </svg>
           </button>
         </div>
 
+        <div class="modal-divider"></div>
+
         <div class="modal-body">
-          <div class="timing-info">
-            <div class="timing-item">
-              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 4H18V2H16V4H8V2H6V4H5C3.89 4 3.01 4.9 3.01 6L3 20C3 21.1 3.89 22 5 22H19C20.1 22 21 21.1 21 20V6C21 4.9 20.1 4 19 4ZM19 20H5V10H19V20ZM19 8H5V6H19V8ZM12 13H17V18H12V13Z" fill="#5f6368"/>
-              </svg>
-              <span>{{ event.date }}</span>
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Date</div>
+              <div class="info-value">{{ event.date }}</div>
             </div>
-            <div class="timing-item">
-              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM12.5 7H11V13L16.25 16.15L17 14.92L12.5 12.25V7Z" fill="#5f6368"/>
-              </svg>
-              <span>{{ event.fullTime }}</span>
+            <div class="info-item">
+              <div class="info-label">Time</div>
+              <div class="info-value">{{ event.fullTime }}</div>
             </div>
-            <div class="timing-item">
-              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 11H7V13H9V11ZM13 11H11V13H13V11ZM17 11H15V13H17V11ZM19 4H18V2H16V4H8V2H6V4H5C3.89 4 3.01 4.9 3.01 6L3 20C3 21.1 3.89 22 5 22H19C20.1 22 21 21.1 21 20V6C21 4.9 20.1 4 19 4ZM19 20H5V10H19V20Z" fill="#5f6368"/>
-              </svg>
-              <span>{{ event.duration }}</span>
+            <div class="info-item">
+              <div class="info-label">Duration</div>
+              <div class="info-value">{{ event.duration }}</div>
             </div>
           </div>
 
           <div class="overview-section">
-            <h3 class="section-title">Overview</h3>
-            <div class="track-badge">{{ event.track }}</div>
+            <div class="section-header">
+              <h3 class="section-title">Overview</h3>
+              <span class="track-badge">{{ event.track }}</span>
+            </div>
             <p v-if="event.overview" class="overview-text">{{ event.overview }}</p>
           </div>
-        </div>
-
-        <div class="modal-footer">
-          <button class="close-button" @click="close">CLOSE</button>
         </div>
       </div>
     </div>
@@ -89,23 +83,22 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.32);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: 16px;
+  padding: 1rem;
 }
 
 .modal-card {
   background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2),
-              0 24px 38px 3px rgba(0, 0, 0, 0.14),
-              0 9px 46px 8px rgba(0, 0, 0, 0.12);
+  border-radius: 28px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+              0 10px 10px -5px rgba(0, 0, 0, 0.04);
   max-width: 600px;
   width: 100%;
-  max-height: 90vh;
+  max-height: clamp(60vh, 90vh, 85vh);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -115,121 +108,144 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 24px 16px;
-  border-bottom: 1px solid #e0e0e0;
+  padding: clamp(1.5rem, 4vw, 2rem);
+  padding-bottom: 1rem;
 }
 
 .modal-title {
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-size: clamp(1.25rem, 4vw, 1.5rem);
+  font-weight: 600;
   color: #202124;
   margin: 0;
-}
-
-.close-icon {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s ease;
-}
-
-.close-icon:hover {
-  background-color: #f5f5f5;
-}
-
-.modal-body {
-  padding: 24px;
-  flex: 1;
-}
-
-.timing-info {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.timing-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.875rem;
-  color: #5f6368;
-}
-
-.icon {
-  flex-shrink: 0;
-}
-
-.overview-section {
-  margin-top: 24px;
-}
-
-.section-title {
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: #202124;
-  margin: 0 0 16px 0;
-}
-
-.track-badge {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: #1a73e8;
-  background-color: #e8f0fe;
-  padding: 6px 16px;
-  border-radius: 16px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 16px;
-}
-
-.overview-text {
-  font-size: 0.875rem;
-  line-height: 1.6;
-  color: #5f6368;
-  margin: 0;
-}
-
-.modal-footer {
-  padding: 16px 24px;
-  border-top: 1px solid #e0e0e0;
-  display: flex;
-  justify-content: flex-end;
+  letter-spacing: 0;
+  font-family: var(--font-sans);
 }
 
 .close-button {
   background: none;
   border: none;
-  color: #1a73e8;
-  font-size: 0.875rem;
-  font-weight: 500;
-  padding: 8px 16px;
   cursor: pointer;
-  border-radius: 4px;
-  letter-spacing: 0.5px;
-  transition: background-color 0.2s ease;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5f6368;
+  transition: all 0.2s ease;
+  min-width: 48px;
+  min-height: 48px;
+  flex-shrink: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .close-button:hover {
-  background-color: #e8f0fe;
+  background-color: rgba(95, 99, 104, 0.08);
+  color: #202124;
 }
 
-/* Modal transition */
+.close-button:focus-visible {
+  outline: 2px solid #1a73e8;
+}
+
+.modal-divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 0 clamp(1.5rem, 4vw, 2rem);
+}
+
+.modal-body {
+  padding: clamp(1.5rem, 4vw, 2rem);
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.info-label {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: #5f6368;
+  text-transform: uppercase;
+  letter-spacing: 0.1px;
+  font-family: var(--font-mono);
+}
+
+.info-value {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: #202124;
+  font-family: var(--font-mono);
+}
+
+.overview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.section-title {
+  font-size: clamp(1rem, 3vw, 1.125rem);
+  font-weight: 600;
+  color: #202124;
+  margin: 0;
+  font-family: var(--font-sans);
+}
+
+.track-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1a73e8;
+  background-color: #e8f0fe;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+}
+
+.overview-text {
+  font-size: clamp(0.875rem, 1.5vw, 0.9375rem);
+  line-height: 1.6;
+  color: #5f6368;
+  margin: 0;
+  font-family: var(--font-sans);
+}
+
+/* Modal transitions */
 .modal-enter-active,
 .modal-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .modal-enter-active .modal-card,
 .modal-leave-active .modal-card {
-  transition: transform 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .modal-enter-from,
@@ -239,23 +255,45 @@ export default {
 
 .modal-enter-from .modal-card,
 .modal-leave-to .modal-card {
-  transform: scale(0.9);
+  transform: scale(0.95) translateY(12px);
 }
 
-@media (max-width: 768px) {
+/* Mobile optimization */
+@media (max-width: 600px) {
+  .modal-overlay {
+    align-items: flex-end;
+  }
+
   .modal-card {
-    max-height: 95vh;
-    margin: 8px;
+    border-radius: 28px 28px 0 0;
+    max-height: 85vh;
   }
-  
-  .modal-header,
-  .modal-body,
-  .modal-footer {
-    padding: 16px;
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .modal-title {
-    font-size: 1.25rem;
+
+  .info-grid {
+    grid-template-columns: 1fr;
   }
+}
+
+/* Scrollbar styling */
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: #d0d0d0;
+  border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: #b0b0b0;
 }
 </style>

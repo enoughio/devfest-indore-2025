@@ -164,18 +164,17 @@ export default {
 <style scoped>
 .what-to-expect-section {
   width: 100%;
-  padding: 4rem 1rem 2rem 1rem;
+  padding: var(--space-4xl) var(--padding-section-x) var(--space-xl);
   display: flex;
   justify-content: center;
-  background-color: #ffffff;
 }
 
 .what-to-expect-container {
-  max-width: 1400px;
-  width: 80%;
+  max-width: var(--content-max-width);
+  width: var(--content-width);
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: clamp(var(--space-xl), 5vw, var(--space-3xl));
 }
 
 /* Top Section */
@@ -186,26 +185,24 @@ export default {
 }
 
 .main-title {
-  font-size: 2.5rem;
+  font-size: var(--text-4xl);
   font-weight: bold;
-  color: #000000;
+  color: var(--color-text-body);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .topic-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: var(--space-sm);
 }
 
 .tag {
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.875rem;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-xl);
+  font-size: var(--text-sm);
   font-weight: 500;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: var(--color-text-body);
   border: 1px solid #000000;
 }
 
@@ -230,25 +227,24 @@ export default {
 }
 
 .intro-text {
-  font-size: 1rem;
+  font-size: var(--text-base);
   line-height: 1.6;
-  color: #000000;
+  color: var(--color-text-body);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Content Boxes */
 .content-boxes {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  gap: var(--space-lg);
 }
 
 .content-box {
-  background-color: #E5E5E5;
+  background-color: var(--color-bg-lighter);
   border: 1px solid #000000;
-  border-radius: 12px;
-  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
   position: relative;
   overflow: hidden;
 }
@@ -267,54 +263,50 @@ export default {
 }
 
 .box-title {
-  font-size: 1.25rem;
+  font-size: var(--text-xl);
   font-weight: bold;
-  color: #000000;
-  margin: 0 0 1rem 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: var(--color-text-body);
+  margin: 0 0 var(--space-md) 0;
 }
 
 .box-text {
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   line-height: 1.5;
-  color: #000000;
+  color: var(--color-text-body);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Bottom Section */
 .bottom-section {
   display: grid;
   grid-template-columns: 2.5fr 0.8fr;
-  gap: 1.5rem;
+  gap: var(--space-lg);
 }
 
 .stay-updated-box {
-  background-color: #E5E5E5;
+  background-color: var(--color-bg-lighter);
   border: 1px solid #000000;
-  border-radius: 12px;
-  padding: 2.5rem;
+  border-radius: var(--radius-md);
+  padding: var(--space-2xl);
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: var(--space-xl);
   justify-content: space-between;
 }
 
 .stay-updated-title {
-  font-size: 1.75rem;
+  font-size: var(--text-2xl);
   font-weight: bold;
-  color: #000000;
+  color: var(--color-text-body);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.3;
 }
 
 .stay-updated-text {
-  font-size: 1rem;
+  font-size: var(--text-base);
   line-height: 1.6;
-  color: #000000;
+  color: var(--color-text-body);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .tech-logos {
@@ -371,7 +363,7 @@ export default {
 /* Responsive Design */
 @media (max-width: 1024px) {
   .what-to-expect-container {
-    width: 90%;
+    width: var(--content-width-tablet);
   }
   
   .content-boxes {
@@ -385,11 +377,11 @@ export default {
 
 @media (max-width: 768px) {
   .what-to-expect-section {
-    padding: 3rem 1rem 1.5rem 1rem;
+    padding: 3rem var(--padding-section-x) 1.5rem;
   }
   
   .what-to-expect-container {
-    width: 95%;
+    width: var(--content-width-mobile);
   }
 
   .main-title {
@@ -436,11 +428,11 @@ export default {
 
 @media (max-width: 480px) {
   .what-to-expect-section {
-    padding: 2.5rem 0.75rem 1rem 0.75rem;
+    padding: 2.5rem 0.75rem var(--padding-section-x);
   }
   
   .what-to-expect-container {
-    width: 95%;
+    width: var(--content-width-mobile);
   }
   
   .box-decorative img {

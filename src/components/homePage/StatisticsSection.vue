@@ -39,18 +39,17 @@ export default {
 /* Statistics Section */
 .statistics-section {
   width: 100%;
-  padding: 0.25rem 1rem;
+  padding: var(--space-xs) var(--padding-section-x);
   display: flex;
   justify-content: center;
-  background-color: #ffffff;
 }
 
 .statistics-container {
-  max-width: 1400px;
-  width: 80%;
-  background-color: #E5E5E5;
-  border-radius: 16px;
-  padding: 2.5rem 2rem 1rem 0;
+  max-width: var(--content-max-width);
+  width: var(--content-width);
+  background-color: var(--color-bg-lighter);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl) var(--space-xl) var(--space-md) 0;
   display: flex;
   align-items: flex-end;
   gap: 2rem;
@@ -82,7 +81,7 @@ export default {
 
 .statistics-blocks {
   display: flex;
-  gap: 1rem;
+  gap: var(--space-md);
   flex: 1;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -92,7 +91,7 @@ export default {
 .stat-block {
   flex: 1;
   min-width: 120px;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   height: 200px;
   display: flex;
   flex-direction: column;
@@ -130,18 +129,18 @@ export default {
 }
 
 .stat-number {
-  font-size: 2.5rem;
+  font-size: var(--text-4xl);
   font-weight: bold;
   color: #1E1E1E;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-mono);
 }
 
 .stat-label {
-  font-size: 1rem;
+  font-size: var(--text-base);
   color: #1E1E1E;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
 }
 
 /* Responsive Design for Statistics */
@@ -149,7 +148,7 @@ export default {
   .statistics-container {
     flex-direction: column;
     padding: 1.5rem;
-    width: 90%;
+    width: var(--content-width-tablet);
   }
 
   .statistics-left {
@@ -178,13 +177,13 @@ export default {
 
 @media (max-width: 768px) {
   .statistics-section {
-    padding: 1.5rem 1rem;
+    padding: 1.5rem var(--padding-section-x);
   }
 
   .statistics-container {
     padding: 1.25rem;
     gap: 1.5rem;
-    width: 95%;
+    width: var(--content-width-mobile);
   }
 
   .statistics-left {
@@ -218,14 +217,14 @@ export default {
 
 @media (max-width: 480px) {
   .statistics-section {
-    padding: 1rem 0.75rem;
+    padding: var(--padding-section-x) 0.75rem;
   }
 
   .statistics-container {
     padding: 1rem;
     gap: 1rem;
     border-radius: 12px;
-    width: 95%;
+    width: var(--content-width-mobile);
   }
 
   .details-element {

@@ -67,6 +67,7 @@
           <router-link to="/faq" class="nav-link" active-class="active" @click="closeMobileMenu">FAQ</router-link>
         </li>
       </ul>
+      <button class="mobile-register-btn" @click="handleRegisterAndClose">Register Now</button>
     </div>
   </header>
 </template>
@@ -82,6 +83,10 @@ export default {
   methods: {
     handleRegister() {
       window.open('https://konfhub.com/pre-devfest-indore', '_blank')
+    },
+    handleRegisterAndClose() {
+      this.handleRegister()
+      this.closeMobileMenu()
     },
     toggleMobileMenu() {
       this.isMobileMenuOpen = !this.isMobileMenuOpen
@@ -140,7 +145,7 @@ export default {
   font-size: 0.875rem;
   font-weight: bold;
   cursor: pointer;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
   transition: all 0.2s;
   white-space: nowrap;
   flex-shrink: 0;
@@ -178,7 +183,7 @@ export default {
   border: 1px solid #000000;
   font-size: 0.75rem;
   font-weight: normal;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
   white-space: nowrap;
 }
 
@@ -204,7 +209,7 @@ export default {
   padding: 0.4rem 0.875rem;
   font-size: 0.875rem;
   font-weight: normal;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
   border-radius: 50px;
   transition: background-color 0.2s;
   white-space: nowrap;
@@ -332,6 +337,27 @@ export default {
   background-color: #D0D0D0;
 }
 
+.mobile-register-btn {
+  width: 100%;
+  background-color: #FBBC04;
+  color: #333333;
+  border: 1px solid #000000;
+  padding: 0.875rem 1.25rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: all 0.2s;
+  margin-top: 1rem;
+}
+
+.mobile-register-btn:hover {
+  background-color: #F9AB00;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 /* Tablet and medium screens */
 @media (max-width: 1200px) {
   .nav {
@@ -387,6 +413,13 @@ export default {
   .register-btn {
     padding: 0.35rem 0.75rem;
     font-size: 0.7rem;
+  }
+}
+
+/* Hide navbar register button on screens ≤400px */
+@media (max-width: 400px) {
+  .register-btn {
+    display: none;
   }
 }
 

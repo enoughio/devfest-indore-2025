@@ -1,6 +1,8 @@
 <template>
-  <div class="page">
-    <h1>Badge</h1>
+  <div class="page-content">
+    <div class="page-content-container">
+      <h1>Badge</h1>
+    </div>
   </div>
 </template>
 
@@ -11,16 +13,8 @@ export default {
 </script>
 
 <style scoped>
-.page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 80px);
-  background-color: #ffffff;
-}
-
 h1 {
-  font-size: 4rem;
+  font-size: var(--text-4xl);
   font-weight: 600;
   color: #000000;
 }

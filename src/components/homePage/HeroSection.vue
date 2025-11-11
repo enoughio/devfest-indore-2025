@@ -68,21 +68,20 @@ export default {
 
 <style scoped>
 .hero-section {
-  min-height: calc(100vh - 80px);
-  background-color: #ffffff;
-  padding: 0.5rem 1rem 0 1rem;
+  min-height: calc(100vh - var(--navbar-height));
+  padding: var(--space-sm) var(--padding-section-x) 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 80px;
+  margin-top: var(--navbar-height);
 }
 
 .hero-container {
-  max-width: 1400px;
-  width: 80%;
+  max-width: var(--content-max-width);
+  width: var(--content-width);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: var(--space-4xl);
   align-items: start;
 }
 
@@ -141,7 +140,7 @@ export default {
   font-size: 1rem;
   line-height: 1.6;
   color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
   margin: 0;
 }
 
@@ -157,7 +156,7 @@ export default {
   gap: 0.5rem;
   font-size: 1rem;
   color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
   flex-wrap: wrap;
 }
 
@@ -190,7 +189,7 @@ export default {
   font-size: 0.875rem;
   font-weight: bold;
   cursor: pointer;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
   text-decoration: none;
   display: inline-block;
   text-align: center;
@@ -238,7 +237,7 @@ export default {
   .hero-container {
     grid-template-columns: 1fr;
     gap: 2.5rem;
-    width: 90%;
+    width: var(--content-width-tablet);
   }
   
   /* Mobile order: left image (1), content (2), right image (3) */
@@ -271,13 +270,12 @@ export default {
 
 @media (max-width: 768px) {
   .hero-section {
-    padding: 1.5rem 1rem;
-    margin-top: 70px;
+    padding: 1.5rem var(--padding-section-x);
   }
   
   .hero-container {
     gap: 2rem;
-    width: 95%;
+    width: var(--content-width-mobile);
   }
   
   .hero-left-content {
@@ -311,13 +309,12 @@ export default {
 
 @media (max-width: 480px) {
   .hero-section {
-    padding: 1rem 0.75rem;
-    margin-top: 60px;
+    padding: var(--padding-section-x) 0.75rem;
   }
   
   .hero-container {
     gap: 1.5rem;
-    width: 95%;
+    width: var(--content-width-mobile);
   }
   
   .hero-left {
