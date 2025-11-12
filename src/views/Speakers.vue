@@ -19,16 +19,15 @@
         <!-- Speaker Cards -->
         <v-container fluid class="px-1">
           <v-row justify="center" class="fill-height">
-           <v-col
+            <v-col
+              v-for="(item, index) in SpeakersData"
+              :key="index"
+              cols="12"
+              sm="6"
               md="4"
               lg="3"
               xl="2"
-              sm="2"
-              cols="6"
-              style="max-width: none !important;"
-              class="shadows"
-              v-for="(item, index) in SpeakersData"
-              :key="index"
+              class="speaker-card"
             >
               <SpeakerCard :speakerData="item" :sessionDetails="SessionDetails" />
             </v-col>
@@ -46,9 +45,7 @@ import SpeakerCard from "@/components/speakers/SpeakerDialog.vue";
 
 export default {
   name: "SpeakersView",
-  components: {
-    SpeakerCard,
-  },
+  components: { SpeakerCard },
   data: () => ({
     SpeakersData: [],
     SessionDetails: [],
@@ -60,9 +57,7 @@ export default {
   },
   mounted() {
     this.SpeakersData = this.sortByName(SpeakersData);
-    this.SessionDetails = SessionDetails.sort((a, b) =>
-      a.id > b.id ? 1 : -1
-    );
+    this.SessionDetails = SessionDetails.sort((a, b) => (a.id > b.id ? 1 : -1));
   },
   created() {
     document.title = "Speakers | Devfest Indore 2025";
@@ -71,13 +66,13 @@ export default {
 </script>
 
 <style scoped>
-/* 🔹 Overall Page Layout */
+/* Layout */
 .speakers-section {
   margin-top: 8vh;
   margin-bottom: 2rem;
 }
 
-/* 🔹 Full-width header section */
+/* Header Section */
 .speakers-header {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
@@ -86,7 +81,7 @@ export default {
   text-align: center;
 }
 
-/* 🔹 Heading Styles */
+/* Heading Styles */
 .gdg-heading {
   font-size: 2.8rem;
   font-weight: 700;
@@ -94,7 +89,7 @@ export default {
   margin-bottom: 1rem;
 }
 
-/* 🔹 Subheading paragraph */
+/* Subheading paragraph */
 .gdg-subheading {
   font-size: 1.1rem;
   line-height: 1.7;
@@ -104,7 +99,7 @@ export default {
   padding: 0 1.5rem;
 }
 
-/* 🔹 Subtitle before cards */
+/* Subtitle before cards */
 .gdg-subtitle {
   font-size: 1.5rem;
   font-weight: 600;
@@ -112,18 +107,21 @@ export default {
   color: #111;
 }
 
-/* 🔹 Card Styling */
-.shadows {
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.07),
-              0 2px 2px rgba(0, 0, 0, 0.15);
-  border-radius: 16px;
-  transition: all 0.3s ease;
-  background: #fff;
+/* Speaker card column spacing (adds margin) */
+.speaker-card {
+  padding: 10px; /* Adds clean spacing between cards */
 }
 
-.shadows:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
-              0 6px 6px rgba(0, 0, 0, 0.23);
-  transform: translateY(-3px);
+/* Remove all box/white background look */
+.speaker-card {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Smooth hover lift (optional) */
+.speaker-card:hover {
+  transform: translateY(-4px);
 }
 </style>

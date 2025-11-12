@@ -20,16 +20,11 @@
           <p class="mt-1 mb-0" style="font-size: 80%">
             {{ speakerData.company?.name }}
           </p>
-
-          <!-- <v-chip
-            class="ma-2 max-width-chip"
-            :color="getChipColor(speakerData.track)"
-          >
-            {{ speakerData.track }}
-          </v-chip> -->
         </div>
 
-        <div class="height">
+        <!-- 🔹 Social Media Icons -->
+        <div class="height social-icons">
+          <!-- X (Twitter) -->
           <v-btn
             v-if="speakerData.social?.twitter"
             icon
@@ -37,11 +32,26 @@
             :href="speakerData.social.twitter"
             target="_blank"
             variant="flat"
-            color="#1da1f2"
+            class="mx-1 twitter-btn"
           >
-            <v-icon>mdi-twitter</v-icon>
+            <v-icon size="20" class="twitter-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1200 1227"
+                width="20"
+                height="20"
+                fill="currentColor"
+              >
+                <path
+                  d="M714.163 519.284L1160.89 0h-106.91L663.77 442.53 363.197 0H0l468.755 681.707L0 1226.37h106.91l418.11-466.892
+                  316.38 466.892H1200L714.163 519.284zM575.705 686.272l-48.47-69.188L145.91 79.71h166.876l311.423 444.31
+                  48.47 69.188 397.58 567.688H903.38L575.705 686.272z"
+                />
+              </svg>
+            </v-icon>
           </v-btn>
 
+          <!-- LinkedIn -->
           <v-btn
             v-if="speakerData.social?.linkedin"
             icon
@@ -49,6 +59,7 @@
             :href="speakerData.social.linkedin"
             target="_blank"
             variant="flat"
+            class="mx-1"
             color="#0077b5"
           >
             <v-icon>mdi-linkedin</v-icon>
@@ -57,7 +68,7 @@
       </div>
     </template>
 
-    <!-- DIALOG CONTENT -->
+    <!-- 🔹 DIALOG CONTENT -->
     <v-card class="rounded-xl">
       <v-card-text>
         <v-container fluid class="py-6">
@@ -74,20 +85,21 @@
                       />
                     </v-avatar>
                   </template>
-                  <v-list-item-title
-                    class="text-h5 font-weight-bold"
-                    >{{ speakerData.name }}</v-list-item-title
-                  >
+                  <v-list-item-title class="text-h5 font-weight-bold">
+                    {{ speakerData.name }}
+                  </v-list-item-title>
                   <v-list-item-subtitle
                     v-if="speakerData.company?.designation"
                     class="text-body-1"
-                    >{{ speakerData.company.designation }}</v-list-item-subtitle
                   >
+                    {{ speakerData.company.designation }}
+                  </v-list-item-subtitle>
                   <v-list-item-subtitle
                     v-if="speakerData.company?.name"
                     class="text-body-1"
-                    >{{ speakerData.company.name }}</v-list-item-subtitle
                   >
+                    {{ speakerData.company.name }}
+                  </v-list-item-subtitle>
                 </v-list-item>
               </v-list>
             </v-col>
@@ -107,7 +119,7 @@
             </v-col>
           </v-row>
 
-          <!-- BIO -->
+          <!-- 🔹 BIO -->
           <v-row class="pt-4">
             <v-col cols="12" md="12">
               <p class="text-body-1 mt-2">
@@ -171,33 +183,32 @@ export default {
     };
   },
   methods: {
-  getChipColor(track) {
-    switch (track) {
-      case "WEB":
-        return "red";
-      case "Cloud":
-        return "green";
-      case "ML":
-        return "yellow";
-      default:
-        return "primary";
-    }
+    getChipColor(track) {
+      switch (track) {
+        case "WEB":
+          return "red";
+        case "Cloud":
+          return "green";
+        case "ML":
+          return "yellow";
+        default:
+          return "primary";
+      }
+    },
+    getImgUrl(imagePath) {
+      if (!imagePath) return "";
+      if (imagePath.startsWith("http")) return imagePath;
+      try {
+        return new URL(
+          `../../assets/img/speakers/${imagePath}`,
+          import.meta.url
+        ).href;
+      } catch (e) {
+        console.warn("⚠️ Image not found:", imagePath);
+        return "";
+      }
+    },
   },
-
-  getImgUrl(imagePath) {
-  if (!imagePath) return "";
-  if (imagePath.startsWith("http")) return imagePath;
-
-  try {
-    // Works reliably in Vite/Vue 3 for assets inside src/assets/
-    return new URL(`../../assets/img/speakers/${imagePath}`, import.meta.url).href;
-  } catch (e) {
-    console.warn("⚠️ Image not found:", imagePath);
-    return "";
-  }
-},
-},
-
 };
 </script>
 
@@ -220,6 +231,27 @@ export default {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
+/* 🔹 Add spacing between social icons */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* 🔹 Custom X (Twitter) icon with white shadow */
+.twitter-icon svg {
+  fill: #000 !important;
+  filter: drop-shadow(0 0 2px #ffffff)
+          drop-shadow(0 0 3px #ffffff);
+  transition: filter 0.3s ease;
+}
+
+.twitter-btn:hover .twitter-icon svg {
+  filter: drop-shadow(0 0 5px #ffffff)
+          drop-shadow(0 0 8px #ffffff);
+}
+
 .v-chip {
   font-weight: 600;
   color: #fff;
@@ -231,5 +263,4 @@ export default {
   color: #333;
   line-height: 1.6;
 }
-
 </style>
