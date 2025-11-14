@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     handleRegister() {
-      window.open('https://konfhub.com/pre-devfest-indore', '_blank')
+      window.open('https://konfhub.com/df-indore', '_blank')
     },
     handleRegisterAndClose() {
       this.handleRegister()

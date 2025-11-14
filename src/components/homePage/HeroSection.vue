@@ -60,7 +60,7 @@ export default {
   name: 'HeroSection',
   methods: {
     handleRegister() {
-      window.open('https://konfhub.com/pre-devfest-indore', '_blank')
+      window.open('https://konfhub.com/df-indore', '_blank')
     },
     handleLocationClick() {
       window.open('https://www.google.com/maps/search/?api=1&query=Indore%20Marriott%20Hotel%20H-2%20Scheme%20No%2054%2C%20Meghdoot%20Garden%2C%20Vijay%20Nagar%2C%20Indore%2C%20Madhya%20Pradesh%20452010%2C%20India', '_blank')
