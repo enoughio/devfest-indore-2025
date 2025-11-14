@@ -1,6 +1,6 @@
  <template>
-  <section class="organizing-section">
-    <div class="content">
+  <section class="page-content">
+    <div class="page-content-container">
       <h2 class="title">Organizing Team</h2>
       <p class="subtitle">
         Our mission is to equip our community members with practical skills, enabling them to
@@ -14,7 +14,7 @@
         <div
           v-for="member in team"
           :key="member.name"
-          class="member"
+          class="member no-select"
           @click="openModalHandler(member)"
         >
           <img :src="member.image" :alt="member.name" class="photo" />
@@ -22,7 +22,6 @@
           <p class="role">{{ member.role }}</p>
         </div>
       </div>
-    </div>
 
     <!-- Popup Modal -->
     <transition name="fade">
@@ -61,6 +60,7 @@
         </div>
       </div>
     </transition>
+    </div>
   </section>
 </template>
 
@@ -94,40 +94,25 @@ onMounted(() => {
 
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&display=swap");
-
 * {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-.organizing-section {
-  background-color: #fff;
-  padding: 100px 0 80px 0;
-  display: flex;
-  justify-content: center;
-  font-family: "Google Sans", Arial, sans-serif;
-}
-
-.content {
-  width: 80%;
-  max-width: 1200px;
-}
-
 .title {
-  font-size: 32px;
+  font-size: var(--text-4xl);
   font-weight: 600;
-  color: #202124;
-  margin-bottom: 10px;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
   text-align: left;
 }
 
 .subtitle {
-  font-size: 15px;
-  color: #202020ff;
+  font-size: var(--text-base);
+  color: var(--color-text-body);
   line-height: 1.55;
   max-width: 1150px;
-  margin-bottom: 55px;
+  margin-bottom: var(--space-2xl);
   text-align: left;
 }
 
@@ -135,9 +120,9 @@ onMounted(() => {
 .team-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 60px 40px;
+  gap: var(--space-3xl) var(--space-2xl);
   justify-items: center;
-  margin-top: 20px;
+  margin-top: var(--space-md);
 }
 
 .member {
@@ -153,20 +138,20 @@ onMounted(() => {
 .photo {
   width: 220px;
   height: 220px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   object-fit: cover;
-  margin-bottom: 16px;
-  background: #f3f3f3;
+  margin-bottom: var(--space-md);
+  background: var(--color-bg-light);
 }
 .name {
-    font-size: 15px;
+    font-size: var(--text-sm);
     font-weight: 700;
-    color: #202124;
-    margin-bottom: 2px;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
   }
   .role {
-    font-size: 12.5px;
-    color: #5f6368;
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
     font-weight: 400;
   }
 
@@ -185,22 +170,22 @@ onMounted(() => {
 .modal-card {
   background: #fff;
   border: 2px solid #000;
-  border-radius: 24px;
+  border-radius: var(--radius-2xl);
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: flex-start;
   max-width: 900px;
   width: 90%;
-  padding: 45px;
+  padding: var(--space-3xl);
   position: relative;
 }
 
 .modal-photo {
   width: 210px;
   height: 210px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   object-fit: cover;
-  margin-right: 40px;
+  margin-right: var(--space-2xl);
 }
 
 .modal-content {
@@ -209,28 +194,26 @@ onMounted(() => {
 }
 
 .modal-name {
-  font-size: 32px;
+  font-size: var(--text-2xl);
   font-weight: 700;
-  color: #202124;
-  margin-bottom: 8px;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
 }
 
 .modal-role {
-  font-size: 16px;
+  font-size: var(--text-sm);
   color: #444;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-md);
 }
 
 .modal-desc {
-  font-size: 16.5px;
-  color: #202124;
+  font-size: var(--text-base);
+  color: var(--color-text-primary);
   line-height: 1.6;
-  margin-bottom: 25px;
+  margin-bottom: var(--space-lg);
 }
 
- /*  Popup animation */
-
-/* Disable Vue fade flash completely */
+/*  Popup animation */
 .fade-enter-active,
 .fade-leave-active {
   transition: none !important;
@@ -279,8 +262,6 @@ onMounted(() => {
   }
 }
 
-
-
 /* Social icons */
 .modal-social {
   display: flex;
@@ -326,9 +307,6 @@ onMounted(() => {
 }
 
 @media (max-width: 600px) {
-  .content {
-    width: 96%;
-  }
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 32px 14px;
@@ -338,13 +316,13 @@ onMounted(() => {
     height: 110px;
   }
   .name {
-    font-size: 15px;
+    font-size: var(--text-sm);
     font-weight: 700;
     color: #202124;
     margin-bottom: 2px;
   }
   .role {
-    font-size: 12.5px;
+    font-size: var(--text-xs);
     color: #5f6368;
     font-weight: 400;
   }
@@ -363,13 +341,13 @@ onMounted(() => {
     text-align: center;
   }
   .modal-name {
-    font-size: 20px;
+    font-size: var(--text-xl);
   }
   .modal-role {
-    font-size: 14px;
+    font-size: var(--text-xs);
   }
   .modal-desc {
-    font-size: 13px;
+    font-size: var(--text-xs);
   }
   .modal-close {
     position: static;
@@ -377,15 +355,21 @@ onMounted(() => {
   }
   .subtitle {
     max-width: 100%;
-    font-size: 15px;
+    font-size: var(--text-sm);
     line-height: 1.7;
-    padding-left: 12px;
-    padding-right: 20px;
   }
   .title {
-    font-size: 30px;
-    padding-left: 12px;
-    padding-right: 20px;
+    font-size: var(--text-3xl);
+  }
+
+  /* ✅ Social icons centered only in mobile */
+  .modal-social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+    margin-top: 16px;
   }
 }
 </style>

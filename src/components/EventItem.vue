@@ -1,5 +1,5 @@
 <template>
-  <div class="event-item" @click="$emit('click')">
+  <div class="event-item no-select" @click="$emit('click')">
     <div class="time-column">
       <div class="start-time">{{ event.startTime }}</div>
       <div class="end-time">{{ event.endTime }}</div>
@@ -35,6 +35,10 @@ export default {
   transition: background-color 0.2s ease;
 }
 
+.event-item:last-child {
+  border-bottom: none;
+}
+
 .event-item:hover {
   background-color: #f5f5f5;
   padding-left: 16px;
@@ -51,17 +55,19 @@ export default {
 }
 
 .start-time {
-  font-size: 1.125rem;
+  font-size: var(--text-lg);
   font-weight: 500;
   color: #202124;
   line-height: 1.4;
+  font-family: var(--font-mono);
 }
 
 .end-time {
-  font-size: 0.875rem;
+  font-size: var(--text-base);
   font-weight: 400;
   color: #5f6368;
   line-height: 1.4;
+  font-family: var(--font-mono);
 }
 
 .details-column {
@@ -76,6 +82,7 @@ export default {
   font-weight: 500;
   color: #202124;
   line-height: 1.5;
+  font-family: var(--font-sans);
 }
 
 .track-tag {
@@ -89,6 +96,7 @@ export default {
   width: fit-content;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-family: var(--font-mono);
 }
 
 @media (max-width: 768px) {
@@ -98,15 +106,15 @@ export default {
   }
   
   .start-time {
-    font-size: 1rem;
+    font-size: var(--text-base);
   }
   
   .end-time {
-    font-size: 0.8125rem;
+    font-size: var(--text-sm);
   }
   
   .event-title {
-    font-size: 0.9375rem;
+    font-size: var(--text-sm);
   }
 }
 </style>

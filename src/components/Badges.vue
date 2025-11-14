@@ -119,7 +119,7 @@ function drawFrameOnly() {
   const c = canvas.value;
   if (!c) return;
   const ctx = c.getContext("2d");
-  // keep canvas transparent (preview box provides visible background)
+  // keep canvas transparent
   ctx.clearRect(0, 0, c.width, c.height);
 
   if (frameLoaded.value) {
@@ -181,14 +181,14 @@ function downloadImage() {
   const H = src.height;
   const radius = Math.round(Math.min(W, H) * 0.05); // ~3% corner radius
 
-  // 1) Create a temporary canvas and draw the current canvas into it
+  // Create a temporary canvas and draw the current canvas into it
   const temp = document.createElement("canvas");
   temp.width = W;
   temp.height = H;
   const tctx = temp.getContext("2d");
   tctx.drawImage(src, 0, 0);
 
-  // 2) Mask the temp canvas to a rounded rectangle (this makes corners transparent)
+  // Mask the temp canvas to a rounded rectangle 
   tctx.globalCompositeOperation = "destination-in";
   tctx.beginPath();
   // rounded rect path
@@ -206,15 +206,15 @@ function downloadImage() {
   tctx.fill();
   tctx.globalCompositeOperation = "source-over";
 
-  // 3) Create final canvas (transparent background) and draw masked image on top
+  // Create final canvas and draw masked image on top
   const finalC = document.createElement("canvas");
   finalC.width = W;
   finalC.height = H;
   const fctx = finalC.getContext("2d");
-  // leave background transparent so exported PNG has transparency
+  // leave background transparent 
   fctx.drawImage(temp, 0, 0);
 
-  // 4) Export
+  // Export
   const a = document.createElement("a");
   a.href = finalC.toDataURL("image/png");
   a.download = "badge.png";
@@ -252,7 +252,7 @@ function downloadImage() {
     gap: 1.25rem;
   }
 
-  /* Keep the columns centered as a block */
+
   .left,
   .right {
     width: 100%;
