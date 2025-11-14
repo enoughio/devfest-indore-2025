@@ -1,15 +1,14 @@
 <template>
   <div class="badge-container">
-    <div class="badge-left">
+    
+    <!-- LEFT SIDE -->
+    <div class="left">
       <h1>Badge</h1>
-      <p class="subtitle">
-        Upload an image and generate a personalized badge with the DevFest frame.
-      </p>
+      <p>Upload an image and generate a personalized badge with the DevFest frame.</p>
 
       <p class="label">Select an Image</p>
       <button class="upload-btn" @click="triggerFileInput">
-        Upload Image
-        <span class="icon">⬆️</span>
+        Upload Image ⬆️
       </button>
 
       <input
@@ -17,216 +16,312 @@
         type="file"
         accept="image/*"
         hidden
-        @change="onImageUpload"
+        @change="onUpload"
       />
 
       <p class="label">Image Shape</p>
-      <div class="shape-toggle">
+      <div class="shape-row">
         <button
           v-for="shape in shapes"
           :key="shape"
-          :class="['shape-btn', { active: selectedShape === shape }]"
+          :class="['shape-btn', { active: shape === selectedShape }]"
           @click="selectedShape = shape"
         >
           {{ shape.toUpperCase() }}
         </button>
       </div>
 
-      <p class="privacy-note">
-        * We respect your privacy and are not storing your pictures on our servers.
-      </p>
+      <p class="privacy">* We respect your privacy and do not store your images.</p>
     </div>
 
-    <div class="badge-right">
-      <div class="canvas-wrapper">
-        <canvas ref="canvas" width="500" height="500"></canvas>
+    <!-- RIGHT SIDE -->
+    <div class="right">
+      <div class="preview-box">
+        <canvas ref="canvas" width="1080" height="1350"></canvas>
+
         <button
           v-if="showDownload"
           class="download-btn"
-          @click="downloadBadge"
+          @click="downloadImage"
         >
-          ⬇️ Download
+          Download Badge ⬇️
         </button>
       </div>
     </div>
+
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
 
-const fileInput = ref(null)
-const canvas = ref(null)
-const showDownload = ref(false)
-const selectedShape = ref('original')
+import { ref, onMounted } from "vue";
+import frameUrl from "../assets/badge.png";
 
-const shapes = ['original', 'square', 'circle']
+const canvas = ref(null);
+const fileInput = ref(null);
+const showDownload = ref(false);
+const frameLoaded = ref(false);
+const frameImg = new Image();
+frameImg.src = frameUrl;
+frameImg.onload = () => (frameLoaded.value = true);
+
+const shapes = ["original", "square", "circle"];
+const selectedShape = ref("original");
+
+function onUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const c = canvas.value;
+  const ctx = c.getContext("2d");
+
+  const userImg = new Image();
+  const reader = new FileReader();
+
+  reader.onload = (e) => {
+    userImg.onload = () => {
+      ctx.clearRect(0, 0, c.width, c.height);
+
+      drawUserImage(ctx, userImg, c.width, c.height);
+
+      // Draw bottom frame (use preloaded frameImg so Vite resolves path)
+      if (frameLoaded.value) {
+        const scaledH = Math.round((frameImg.height * c.width) / frameImg.width);
+        ctx.drawImage(frameImg, 0, c.height - scaledH, c.width, scaledH);
+        showDownload.value = true;
+      } else {
+        // if frame isn't loaded yet, attempt to draw it and still enable download
+        const f = new Image();
+        f.src = frameUrl;
+        f.onload = () => {
+          const scaledH = Math.round((f.height * c.width) / f.width);
+          ctx.drawImage(f, 0, c.height - scaledH, c.width, scaledH);
+          showDownload.value = true;
+        };
+        f.onerror = () => {
+          showDownload.value = true;
+        };
+      }
+    };
+    userImg.src = e.target.result;
+  };
+
+  reader.readAsDataURL(file);
+}
 
 function triggerFileInput() {
-  fileInput.value.click()
+  if (fileInput.value && fileInput.value.click) fileInput.value.click();
 }
 
-function onImageUpload(event) {
-  const file = event.target.files[0]
-  if (!file) return
+function drawFrameOnly() {
+  const c = canvas.value;
+  if (!c) return;
+  const ctx = c.getContext("2d");
+  // keep canvas transparent (preview box provides visible background)
+  ctx.clearRect(0, 0, c.width, c.height);
 
-  const ctx = canvas.value.getContext('2d')
-  const img = new Image()
-  const reader = new FileReader()
+  if (frameLoaded.value) {
+    const scaledH = Math.round((frameImg.height * c.width) / frameImg.width);
+    ctx.drawImage(frameImg, 0, c.height - scaledH, c.width, scaledH);
+  } else {
+    // try to draw even if not loaded yet
+    const f = new Image();
+    f.src = frameUrl;
+    f.onload = () => {
+      const scaledH = Math.round((f.height * c.width) / f.width);
+      ctx.drawImage(f, 0, c.height - scaledH, c.width, scaledH);
+    };
+  }
+}
 
-  reader.onload = e => {
-    img.onload = () => {
-      const c = canvas.value
-      ctx.clearRect(0, 0, c.width, c.height)
+onMounted(() => {
+  // Ensure frame is visible even before any upload
+  drawFrameOnly();
+  // If frame loads later, redraw to ensure crispness
+  frameImg.onload = () => drawFrameOnly();
+});
 
-      // Draw uploaded image
-      if (selectedShape.value === 'circle') {
-        ctx.save()
-        ctx.beginPath()
-        ctx.arc(c.width / 2, c.height / 2, c.width / 2, 0, Math.PI * 2)
-        ctx.closePath()
-        ctx.clip()
-      }
-      ctx.drawImage(img, 0, 0, c.width, c.height)
-      if (selectedShape.value === 'circle') ctx.restore()
+function drawUserImage(ctx, img, W, H) {
+  const imgRatio = img.width / img.height;
+  const canvasRatio = W / H;
 
-      // Add simple frame
-      const frame = new Image()
-      frame.src = '/devfest-frame.png' // put your frame asset in /public
-      frame.onload = () => {
-        ctx.drawImage(frame, 0, 0, c.width, c.height)
-      }
+  let renderW, renderH, startX, startY;
 
-      showDownload.value = true
-    }
-    img.src = e.target.result
+  if (imgRatio > canvasRatio) {
+    renderH = H;
+    renderW = renderH * imgRatio;
+    startX = -(renderW - W) / 2;
+    startY = 0;
+  } else {
+    renderW = W;
+    renderH = renderW / imgRatio;
+    startX = 0;
+    startY = -(renderH - H) / 2;
   }
 
-  reader.readAsDataURL(file)
+  if (selectedShape.value === "circle") {
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(W / 2, H / 2, W / 2, 0, Math.PI * 2);
+    ctx.clip();
+  }
+
+  ctx.drawImage(img, startX, startY, renderW, renderH);
+
+  if (selectedShape.value === "circle") ctx.restore();
 }
 
-function downloadBadge() {
-  const link = document.createElement('a')
-  link.download = 'devfest-badge.png'
-  link.href = canvas.value.toDataURL()
-  link.click()
+function downloadImage() {
+  const src = canvas.value;
+  if (!src) return;
+
+  const W = src.width;
+  const H = src.height;
+  const radius = Math.round(Math.min(W, H) * 0.05); // ~3% corner radius
+
+  // 1) Create a temporary canvas and draw the current canvas into it
+  const temp = document.createElement("canvas");
+  temp.width = W;
+  temp.height = H;
+  const tctx = temp.getContext("2d");
+  tctx.drawImage(src, 0, 0);
+
+  // 2) Mask the temp canvas to a rounded rectangle (this makes corners transparent)
+  tctx.globalCompositeOperation = "destination-in";
+  tctx.beginPath();
+  // rounded rect path
+  tctx.moveTo(radius, 0);
+  tctx.lineTo(W - radius, 0);
+  tctx.quadraticCurveTo(W, 0, W, radius);
+  tctx.lineTo(W, H - radius);
+  tctx.quadraticCurveTo(W, H, W - radius, H);
+  tctx.lineTo(radius, H);
+  tctx.quadraticCurveTo(0, H, 0, H - radius);
+  tctx.lineTo(0, radius);
+  tctx.quadraticCurveTo(0, 0, radius, 0);
+  tctx.closePath();
+  tctx.fillStyle = "#fff";
+  tctx.fill();
+  tctx.globalCompositeOperation = "source-over";
+
+  // 3) Create final canvas (transparent background) and draw masked image on top
+  const finalC = document.createElement("canvas");
+  finalC.width = W;
+  finalC.height = H;
+  const fctx = finalC.getContext("2d");
+  // leave background transparent so exported PNG has transparency
+  fctx.drawImage(temp, 0, 0);
+
+  // 4) Export
+  const a = document.createElement("a");
+  a.href = finalC.toDataURL("image/png");
+  a.download = "badge.png";
+  a.click();
 }
 </script>
 
 <style scoped>
 .badge-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 2rem;
   flex-wrap: wrap;
-  padding: 4rem;
-  min-height: 100vh;
+  padding: 2rem;
+  margin: 3.5rem auto 0;
+  max-width: 980px;
   box-sizing: border-box;
-  margin: 0 auto;
-  font-family: "Google Sans", Arial, sans-serif;
-  color: #1f1f1f;
-}
-
-.badge-left {
-  flex: 0 1 420px;
-  min-width: 300px;
-}
-
-.badge-right {
-  flex: 0 1 420px;
-  min-width: 320px;
-  display: flex;
   justify-content: center;
+  font-family: "Google Sans", sans-serif;
 }
 
-h1 {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+.left {
+  width: 350px;
+  box-sizing: border-box;
 }
 
-.subtitle {
-  margin-bottom: 1.5rem;
-  color: #444;
+.right {
+  width: 450px;
+  box-sizing: border-box;
+}
+
+/* Centering adjustments for tablet and smaller screens */
+@media (max-width: 920px) {
+  .badge-container {
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+
+  /* Keep the columns centered as a block */
+  .left,
+  .right {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .preview-box {
+    margin: 0 auto;
+  }
 }
 
 .label {
-  margin-top: 1.5rem;
-  font-weight: 500;
+  margin-top: 1.2rem;
+  font-weight: 600;
 }
 
 .upload-btn {
-  background-color: #ffd427;
-  border: 1.5px solid #1e1e1e;
-  border-radius: 999px;
-  padding: 0.7rem 1.2rem;
+  background: #ffd427;
+  border: 1.5px solid black;
+  padding: 0.7rem 1.4rem;
+  border-radius: 50px;
   cursor: pointer;
-  font-size: 1rem;
   font-weight: 500;
-  color: #000;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-top: 0.7rem;
-  transition: 0.2s;
 }
 
-.upload-btn:hover {
-  background-color: #ffce00;
-}
-
-.shape-toggle {
+.shape-row {
+  margin-top: 0.6rem;
+  border: 1.5px solid black;
   display: flex;
-  margin-top: 0.7rem;
-  border: 1.5px solid #1e1e1e;
-  border-radius: 999px;
+  border-radius: 50px;
   overflow: hidden;
 }
 
 .shape-btn {
   flex: 1;
-  background: transparent;
+  padding: 0.6rem;
   border: none;
-  padding: 0.5rem 1rem;
+  background: transparent;
   cursor: pointer;
-  font-weight: 500;
 }
 
 .shape-btn.active {
-  background-color: #eee;
+  background: #eee;
 }
 
-.canvas-wrapper {
+.privacy {
+  margin-top: 1rem;
+  color: #777;
+}
+
+.preview-box {
   background: #eee;
-  border: 1.5px solid #000;
+  padding: 20px;
+  border: 2px solid black;
   border-radius: 20px;
-  padding: 1rem;
   text-align: center;
 }
 
 canvas {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 20px;
 }
 
 .download-btn {
   margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  border: 1px solid #1e1e1e;
-  background-color: white;
+  padding: 0.6rem 1.5rem;
+  border: 1.5px solid black;
+  border-radius: 30px;
+  background: white;
   cursor: pointer;
-  font-weight: 500;
-}
-
-.download-btn:hover {
-  background-color: #f3f3f3;
-}
-
-.privacy-note {
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-  color: #555;
+  font-weight: 600;
 }
 </style>
